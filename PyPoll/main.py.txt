@@ -1,0 +1,125 @@
+# import our modules
+
+import os
+import csv
+
+# read in our CSV file
+
+csvpath = os.path.join('Resources', 'election_data.csv')
+
+with open(csvpath) as csvfile:
+
+    csvreader = csv.reader(csvfile, delimiter=',')
+    
+# read the header row
+
+    csv_header = next(csvreader)
+
+# count number of votes
+
+    total_votes = sum(1 for row in csvfile)
+
+ #print title and total votes
+    
+    print("Election Results")
+    print("-----------------------------------------")
+    print("Total Votes: ", total_votes)
+    print("-----------------------------------------")
+    
+with open(csvpath) as csvfile:
+
+# count Khan's votes, calculate his percentage of total votes, and print the results
+
+    khan_count = sum(1 for row in csv.reader(csvfile) if row[2] == 'Khan')
+    
+    khan_per = (khan_count / total_votes)
+    
+    print("Khan: %", round(khan_per * 100, 3), " (", khan_count, ")")
+    
+with open(csvpath) as csvfile:
+
+# count Correy's votes, calculate his percentage of total votes, and print the results
+    
+    correy_count = sum(1 for row in csv.reader(csvfile) if row[2] == 'Correy')
+    
+    correy_per = correy_count / total_votes
+    
+    print("Correy: %", round(correy_per * 100, 3), " (", correy_count, ")")
+    
+with open(csvpath) as csvfile:   
+
+# count Li's votes, calculate his percentage of total votes, and print the results 
+    
+    li_count = sum(1 for row in csv.reader(csvfile) if row[2] == 'Li')
+    
+    li_per = li_count / total_votes
+    
+    print("Li: %", round(li_per * 100, 3), " (", li_count, ")")
+    
+with open(csvpath) as csvfile:    
+
+# count O'Tooley's votes, calculate his percentage of total votes, and print the results
+    
+    tooley_count = sum(1 for row in csv.reader(csvfile) if row[2] == "O'Tooley")
+    
+    tooley_per = tooley_count / total_votes
+    
+    print("O'Tooley: %", round(tooley_per * 100, 3), " (", tooley_count, ")")
+    print("-----------------------------------------")
+
+# find the winner and print their name
+    
+    winner = max(khan_count, correy_count, li_count, tooley_count)
+    
+    if winner == khan_count:
+        print("Winner: Khan")
+        
+    if winner == correy_count:
+        print("Winner: Correy")
+        
+    if winner == li_count:
+        print("Winner: Li")
+        
+    if winner == tooley_count:
+        print("Winner: Tooley")
+        
+    print("-----------------------------------------")
+
+# write the results to a text file
+    
+file = open("election_results.txt", "w")
+
+    # Write the first row (column headers)
+file.write("Election Results")
+file.write("\n")
+file.write("-----------------------------------------")
+file.write("\n")
+file.write("Total Votes: " + str(total_votes))
+file.write("\n")
+file.write("-----------------------------------------")
+file.write("\n")
+file.write("Khan: %" + str(round(khan_per * 100, 3)) + " (" + str(khan_count) + ")")
+file.write("\n")
+file.write("Correy: %" + str(round(correy_per * 100, 3)) + " (" + str(correy_count) + ")")
+file.write("\n")
+file.write("Li: %" + str(round(li_per * 100, 3)) + " (" + str(li_count) + ")")
+file.write("\n")
+file.write("O'Tooley: %" + str(round(tooley_per * 100, 3)) + " (" + str(tooley_count) + ")")
+file.write("\n")
+file.write("-----------------------------------------")
+file.write("\n")
+if winner == khan_count:
+     file.write("Winner: Khan")
+        
+if winner == correy_count:
+     file.write("Winner: Correy")
+        
+if winner == li_count:
+     file.write("Winner: Li")
+        
+if winner == tooley_count:
+     file.write("Winner: Tooley")
+file.write("\n")
+file.write("-----------------------------------------")
+
+file.close()
